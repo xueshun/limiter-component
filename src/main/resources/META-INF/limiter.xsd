@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns="http://www.mogujie.com/schema/limiter"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:beans="http://www.springframework.org/schema/beans"
+            xmlns:tool="http://www.springframework.org/schema/tool"
+            targetNamespace="http://www.mogujie.com/schema/limiter"
+            elementFormDefault="qualified"
+            attributeFormDefault="unqualified"
+            version="1.0.0">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:import namespace="http://www.springframework.org/schema/beans" schemaLocation="http://www.springframework.org/schema/beans/spring-beans.xsd"/>
+    <xsd:import namespace="http://www.springframework.org/schema/tool" schemaLocation="http://www.springframework.org/schema/tool/spring-tool.xsd"/>
+
+    <xsd:complexType name="limiterBean">
+        <xsd:complexContent>
+            <xsd:extension base="beans:identifiedType">
+                <xsd:sequence>
+                    <xsd:element name="limiterConfig" type="limiterConfigType" minOccurs="0" maxOccurs="1"/>
+                </xsd:sequence>
+                <xsd:attribute name="interface" type="xsd:token" use="required">
+                    <xsd:annotation>
+                        <xsd:appinfo>
+                            <tool:annotation>
+                                <tool:expected-type type="java.lang.Class"/>
+                            </tool:annotation>
+                        </xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:attribute>
+                <!--<xsd:attribute name="ref" type="xsd:string" use="required"/>-->
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+
+    <xsd:complexType name="limiterConfigType">
+        <xsd:sequence>
+            <xsd:element name="warmupConfig" type="warmupConfigBean" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="warmupConfigBean">
+        <xsd:attribute name="maxQps" type="xsd:long" use="required">
+            <xsd:annotation>
+                <xsd:documentation><![CDATA[The limiter switch default off]]></xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="warmupSwitch" type="xsd:boolean" use="optional" default="false">
+            <xsd:annotation>
+                <xsd:documentation><![CDATA[The limiter switch default off]]></xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="warmupTime" type="xsd:long" use="optional">
+            <xsd:annotation>
+                <xsd:documentation><![CDATA[The service use warm-up time]]></xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:element name="clusterLimiter" type="limiterBean" />
+
+
+
+    <!--<xsd:element name="dateformat">-->
+        <!--<xsd:complexType>-->
+            <!--<xsd:complexContent>-->
+                <!--<xsd:extension base="beans:identifiedType">-->
+                    <!--<xsd:attribute name="lenient" type="xsd:boolean"/>-->
+                    <!--<xsd:attribute name="pattern" type="xsd:string" use="required"/>-->
+                <!--</xsd:extension>-->
+            <!--</xsd:complexContent>-->
+        <!--</xsd:complexType>-->
+    <!--</xsd:element>-->
+
+</xsd:schema>

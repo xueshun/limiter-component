@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:limiter="http://www.mogujie.com/schema/limiter"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.mogujie.com/schema/limiter http://www.mogujie.com/schema/limiter/limiter.xsd">
+
+
+    <limiter:clusterLimiter id="testBizLimiter" interface="com.zhizhu.limiter.api.TestBiz" >
+        <limiter:limiterConfig>
+            <limiter:warmupConfig maxQps="1" warmupSwitch="true" warmupTime="1800"/>
+        </limiter:limiterConfig>
+    </limiter:clusterLimiter>
+
+    <bean id="testBiz" class="com.zhizhu.limiter.api.TestBizImpl" />
+</beans>
