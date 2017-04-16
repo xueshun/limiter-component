@@ -13,6 +13,12 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by zhizhu on 16/11/8.
+ *
+ * <p>
+ *
+ *     {@link #call()}可以通过在AOP切面对接口的访问的拦截中实现， 实现限流
+ *     这里主要是用怎么用spring标签实现自定义的一些功能
+ * </p>
  */
 public class Application {
 
@@ -50,6 +56,13 @@ public class Application {
         executorService.shutdown();
     }
 
+    /**
+     *
+     * <p>
+     *     可以通过AOP切面中实现对接口的访问的拦截， 实现限流
+     * </p>
+     *
+     */
     private static void call() {
 
         final TestBiz testBiz = (TestBiz) context.getBean("testBiz");
